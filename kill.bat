@@ -1,44 +1,44 @@
 @echo off
-echo 0. ç­æ´»å¤„ç†
+echo 0. Ãğ»î´¦Àí
 taskkill /f /im wscript.exe
 
-echo 1. åˆ‡æ¢åˆ° U ç›˜
-rem wmic logicaldisk åˆ—å‡ºç£ç›˜
-rem drivetype 2 ç±»å‹å°±æ˜¯ U ç›˜
-rem æ®è¯´ Window$ 7 ä¹‹å‰ä¸èƒ½ä½¿ç”¨ wmicï¼Ÿæœ‰å®é™…ç¯å¢ƒæ—¶å†æµ‹è¯•
+echo 1. ÇĞ»»µ½ U ÅÌ
+rem wmic logicaldisk ÁĞ³ö´ÅÅÌ
+rem drivetype 2 ÀàĞÍ¾ÍÊÇ U ÅÌ
+rem ¾İËµ Window$ 7 Ö®Ç°²»ÄÜÊ¹ÓÃ wmic£¿ÓĞÊµ¼Ê»·¾³Ê±ÔÙ²âÊÔ
 for /f "skip=1" %%i in ('wmic logicaldisk where "drivetype=2" get caption') do %%i
 
-echo 2. å»æ‰ U ç›˜ä¸­å…¨éƒ¨æ–‡ä»¶çš„ç³»ç»Ÿã€éšè—å±æ€§
-rem "System Volume Information" æ–‡ä»¶å¤¹å¾ˆå¯èƒ½é­æ®ƒï¼Œä½†æ˜¯æ²¡å…³ç³»çš„å§è¿™â€¦â€¦
-rem æœ‰äº›ç”µè„‘ PATH ç¯å¢ƒå˜é‡è¢«å¹²æ‰çš„â€¦â€¦ä¿®æ”¹ä¸º %windir%/system32/attrib
-attrib -s -h /s /d *.*
+echo 2. È¥µô U ÅÌÖĞÈ«²¿ÎÄ¼şµÄÏµÍ³¡¢Òş²ØÊôĞÔ
+rem "System Volume Information" ÎÄ¼ş¼ĞºÜ¿ÉÄÜÔâÑê£¬µ«ÊÇÃ»¹ØÏµµÄ°ÉÕâ¡­¡­
+rem ÓĞĞ©µçÄÔ PATH »·¾³±äÁ¿±»¸ÉµôµÄ¡­¡­ĞŞ¸ÄÎª %windir%/system32/attrib
+for %%f in (.\*) do (attrib -s -h %%f)
 
-echo 3. åˆ æ‰é‚£äº›å¿«æ·æ–¹å¼
-rem U ç›˜æ ¹ç›®å½•è¦å•¥å¿«æ·æ–¹å¼â€¦â€¦
+echo 3. É¾µôÄÇĞ©¿ì½İ·½Ê½
+rem U ÅÌ¸ùÄ¿Â¼ÒªÉ¶¿ì½İ·½Ê½¡­¡­
 del *.lnk
-echo 4. åˆ æ‰ WScript è„šæœ¬æ–‡ä»¶ï¼Œæ½œåœ¨çš„ç—…æ¯’
-rem ä¸€èˆ¬æ²¡äººåœ¨ U ç›˜æ ¹ç›®å½•æ”¾è¿™ç§æ–‡ä»¶çš„å§â€¦â€¦
+echo 4. É¾µô WScript ½Å±¾ÎÄ¼ş£¬Ç±ÔÚµÄ²¡¶¾
+rem Ò»°ãÃ»ÈËÔÚ U ÅÌ¸ùÄ¿Â¼·ÅÕâÖÖÎÄ¼şµÄ°É¡­¡­
 del *.wsf *.vbs *.vbe *.wsc
 
-echo 5. æŸ¥è¯¢æ³¨å†Œè¡¨
-rem å°†æ‰§è¡Œè¾“å‡ºä¼ é€’ç»™å˜é‡çš„æ­£ç¡®å§¿åŠ¿ï¼
-rem HKLM æ˜¯ä¸æ˜¯ä¹Ÿå¾—ææâ€¦â€¦
+echo 5. ²éÑ¯×¢²á±í
+rem ½«Ö´ĞĞÊä³ö´«µİ¸ø±äÁ¿µÄÕıÈ·×ËÊÆ£¡
+rem HKLM ÊÇ²»ÊÇÒ²µÃ¸ã¸ã¡­¡­
 for /f "tokens=*" %%i in ('reg query HKCU\Software\Microsoft\Windows\CurrentVersion\Run ^| find "wscript"') do set result=%%i
-echo 6. è·å¾—æŒ‡å‘ç—…æ¯’çš„è‡ªå¯åŠ¨é¡¹
-rem tokens æŒ‡å®šè¦æ‹¿ç¬¬å‡ ä¸ªä½¿ç”¨ delims åˆ†å‰²çš„æ®µ
+echo 6. »ñµÃÖ¸Ïò²¡¶¾µÄ×ÔÆô¶¯Ïî
+rem tokens Ö¸¶¨ÒªÄÃµÚ¼¸¸öÊ¹ÓÃ delims ·Ö¸îµÄ¶Î
 for /f "tokens=1" %%i in ('echo %result%') do set reg=%%i
-echo 7. è·å¾—ç—…æ¯’çš„çœŸæ­£è·¯å¾„
-rem äº‹å®ä¸Šä¸èƒ½ç¡®å®šæ­¤å¤„çš„åŒå¼•å·ä½œä¸º delimiter æ˜¯ä¸æ˜¯æ°å½“çš„è¡Œä¸ºâ€¦â€¦
-rem ç›®å‰çš„å†™æ³•æ¥æºæ˜¯ https://stackoverflow.com/questions/7516064/escaping-double-quote-in-delims-option-of-for-f
-rem https://ss64.com/nt/for_cmd.html ä¸­æåˆ°ä¸€ç§æ–¹å¼ï¼Œtokens ä½¿ç”¨å½¢å¦‚ 3* è¿™æ ·çš„ï¼Œèƒ½æ‹¿åˆ°ä» 3 å¼€å§‹åˆ°æœ€åä¸€æ®µ
-rem ä½†æ˜¯è¿™é‡Œ Window$ 10 (10.0.17025.1000) è¡¨ç¤ºå¤±è´¥
+echo 7. »ñµÃ²¡¶¾µÄÕæÕıÂ·¾¶
+rem ÊÂÊµÉÏ²»ÄÜÈ·¶¨´Ë´¦µÄË«ÒıºÅ×÷Îª delimiter ÊÇ²»ÊÇÇ¡µ±µÄĞĞÎª¡­¡­
+rem Ä¿Ç°µÄĞ´·¨À´Ô´ÊÇ https://stackoverflow.com/questions/7516064/escaping-double-quote-in-delims-option-of-for-f
+rem https://ss64.com/nt/for_cmd.html ÖĞÌáµ½Ò»ÖÖ·½Ê½£¬tokens Ê¹ÓÃĞÎÈç 3* ÕâÑùµÄ£¬ÄÜÄÃµ½´Ó 3 ¿ªÊ¼µ½×îºóÒ»¶Î
+rem µ«ÊÇÕâÀï Window$ 10 (10.0.17025.1000) ±íÊ¾Ê§°Ü
 for /F delims^=^"^ tokens^=2 %%i in ('echo %result%') do set virus=%%i
 
-echo 8. åˆ é™¤è¿™ä¸ªè‡ªå¯åŠ¨é¡¹
+echo 8. É¾³ıÕâ¸ö×ÔÆô¶¯Ïî
 reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\Run" /v %reg% /f
-echo 9. åˆ é™¤ç—…æ¯’
+echo 9. É¾³ı²¡¶¾
 del %virus%
-echo 10. å—¯ç°åœ¨è¿™ä¸ªç”µè„‘å’Œè¿™ä¸ª U ç›˜éƒ½æ²¡äº‹äº†â€¦â€¦ä½†æ˜¯è¿™ä»ç„¶ä¸èƒ½é¿å…ä¸‹æ¬¡æœ‰å…¶å®ƒ U ç›˜å°†ç—…æ¯’å¸¦æ¥åˆ°è¿™ä¸ªç”µè„‘ä¸­
-echo å¦‚æœæœ‰äººæœ‰å…ç–«çš„ä»€ä¹ˆæ€è·¯ï¼Œè¯·å‘Šè¯‰æˆ‘
-echo æˆ‘ä¹Ÿä¸è¯´æˆ‘æ˜¯è°ï¼ˆ
+echo 10. àÅÏÖÔÚÕâ¸öµçÄÔºÍÕâ¸ö U ÅÌ¶¼Ã»ÊÂÁË¡­¡­µ«ÊÇÕâÈÔÈ»²»ÄÜ±ÜÃâÏÂ´ÎÓĞÆäËü U ÅÌ½«²¡¶¾´øÀ´µ½Õâ¸öµçÄÔÖĞ
+echo Èç¹ûÓĞÈËÓĞÃâÒßµÄÊ²Ã´Ë¼Â·£¬Çë¸æËßÎÒ
+echo ÎÒÒ²²»ËµÎÒÊÇË­£¨
 pause
